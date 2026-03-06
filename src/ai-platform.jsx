@@ -242,25 +242,16 @@ export default function AIPlatform() {
     setStreamingText("");
 
     try {
-      const res = await fetch("/api/chat", {
+  const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-```
-
-Just change the URL from:
-```
-"https://api.anthropic.com/v1/messages"
-```
-to:
-```
-"/api/chat"
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: activeTool.systemPrompt,
-          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
-        }),
-      });
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1000,
+      system: activeTool.systemPrompt,
+      messages: newMessages.map(m => ({ role: m.role, content: m.content })),
+    }),
+  });
 
       const data = await response.json();
       const assistantText = data.content?.map(b => b.text || "").join("") || "Sorry, I couldn't generate a response.";
